@@ -18,10 +18,10 @@ public class ProductService {
     }
 
     public Product getProductById(int id) {
-        return productRepo.getReferenceById(id);
+        return productRepo.findById(id).orElseThrow(() -> new RuntimeException("Product Not Found"));
     }
 
-    public void addProduct(Product product) {
-        productRepo.save(product);
+    public Product addProduct(Product product) {
+        return productRepo.save(product);
     }
 }

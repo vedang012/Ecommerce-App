@@ -3,7 +3,7 @@ import { postRequest } from "../Service/AxiosRequest";
 
 function ProductForm() {
 
-  const[productName, setProuctName] = useState(null)
+  const[name, setName] = useState(null)
   const[category, setCategory] = useState(null)
   const[price, setPrice] = useState(null)
   const[description, setDescription] = useState(null)
@@ -15,7 +15,7 @@ function ProductForm() {
 
 
     const productData = {
-      productName,
+      name,
       category,
       description,
       price,
@@ -25,6 +25,7 @@ function ProductForm() {
 
     try {
       const data = await postRequest("http://localhost:8080/new-product", productData)
+      console.log(data)
       
     } catch (error) {
       console.log(error)
@@ -40,7 +41,7 @@ function ProductForm() {
 
         <label for="pname">Product Name:</label>
         <br />
-        <input className="border-2" onChange={(e) => setProuctName(e.target.value)} type="text" id="pname" name="pname" />
+        <input className="border-2" onChange={(e) => setName(e.target.value)} type="text" id="pname" name="pname" />
         <br />
         <label for="fname">Category:</label>
         <br />

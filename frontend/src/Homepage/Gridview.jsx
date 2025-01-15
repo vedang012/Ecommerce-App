@@ -1,8 +1,36 @@
+import { useEffect, useState } from "react";
+import { getRequest } from "../Service/AxiosRequest";
+
 function Gridview(props) {
 
   const openProduct = (productId) => {
-    window.location.href= `/product/${productId}`;
+    window.location.href = `/product/${productId}`;
   };
+
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+      try {
+
+        const reqData = await getRequest("http://localhost:8080/products")
+        setData(reqData)
+        setLoading(false)
+
+      } catch (error) {
+        setError(error)
+        console.error(error)
+      }
+    }
+
+    fetchData()
+
+
+  }, [])
 
 
   return (
@@ -10,7 +38,7 @@ function Gridview(props) {
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto" bis_skin_checked="1">
           <div className="flex flex-wrap -m-4" bis_skin_checked="1">
-            {props.products.map((product) => (
+            {data.map((product) => (
               <div
                 key={product.productId}
                 className="lg:w-1/4 md:w-1/2 p-4 w-full"
